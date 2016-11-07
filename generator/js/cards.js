@@ -314,26 +314,22 @@ function card_generate_back(data, options) {
     var color = card_data_color_back(data, options)
     var style_color = card_generate_color_style(color, options);
 	var url = data.background_image;
-	var background_style = "";
-	if (url)
-	{
-		background_style = 'style = "background-image: url(&quot;' + url + '&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;"'
-	}
-	else 
-	{
-		background_style = card_generate_color_gradient_style(color, options);
-    }
+	var background_style = card_generate_color_gradient_style(color, options);
+    
 	var icon = card_data_icon_back(data, options);
 
     var result = "";
     result += '<div class="card card-size-' + options.card_size + '" ' + style_color + '>';
     result += '  <div class="card-back" ' + background_style + '>';
-	if (!url)
-	{
-		result += '    <div class="card-back-inner">';
+    if (url)
+	{  
+        var background_style_image = 'style = "background-image: url(&quot;' + url + '&quot;); background-size: cover; background-position: center; background-repeat: no-repeat;"';
+        result += '    <div '+ background_style_image +' class="card-back-inner">';
+	} else {
+        result += '    <div class="card-back-inner">';
 		result += '      <div class="card-back-icon icon-' + icon + '" ' + style_color + '></div>';
-		result += '    </div>';
-	}
+    }
+    result += '    </div>';
     result += '  </div>';
     result += '</div>';
 
